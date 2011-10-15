@@ -33,3 +33,6 @@ alias surc.d='sudo rc.d'
 alias supacman='sudo pacman'
 alias reboot='sudo reboot & logout'
 alias shutdown='sudo shutdown -hP now & logout'
+# -k option to end sudo session immediately; sudo session might still be active
+# after wake-up without -k option
+alias sleep='sudo -k pm-suspend'

@@ -16,6 +16,10 @@ elif [ "${file}" == "php" ]; then
     file="/etc/php/php.ini"
 elif [ "${file}" == "backup" ]; then
     file="${HOME}/bin/backup2junk"
+elif [ "${file}" == "fan" ]; then
+    file="/etc/fancontrol"
+elif [ "${file}" == "rc" ]; then
+    file="/etc/rc.conf"
 fi
 
 echo "Full command: ${tool} ${file}" & ${tool} ${file}
