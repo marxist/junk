@@ -20,6 +20,8 @@ elif [ "${file}" == "fan" ]; then
     file="/etc/fancontrol"
 elif [ "${file}" == "rc" ]; then
     file="/etc/rc.conf"
+elif [ "${file}" == "xinit" ]; then
+    file="${HOME}/.xinitrc"
 fi
 
 echo "Full command: ${tool} ${file}" & ${tool} ${file}

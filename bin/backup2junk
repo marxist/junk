@@ -6,9 +6,13 @@ cp -v ~/.bashrc $junk/conf/
 cp -v ~/.rtorrent.rc $junk/conf/
 cp -v ~/.i3/config $junk/conf/i3config
 cp -v -r ~/bin $junk/
+cp -v ~/.xinitrc $junk/conf/
+cp -v ~/.gtkrc-2.0 $junk/conf/
+cp -v ~/.config/gtk-3.0/settings.ini $junk/conf/gtk-3.0.settings.ini
 
 # system files
 cp -v /etc/rc.conf $junk/conf/
 cp -v /etc/bash.bashrc $junk/conf/
 cp -v /etc/httpd/conf/httpd.conf $junk/conf/
 cp -v /etc/php/php.ini $junk/conf/
+cp -v /etc/fancontrol $junk/conf/

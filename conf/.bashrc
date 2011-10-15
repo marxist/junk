@@ -31,8 +31,7 @@ alias sunano='sudo nano -x'
 alias suconf='sudo conf'
 alias surc.d='sudo rc.d'
 alias supacman='sudo pacman'
-alias reboot='sudo reboot & logout'
-alias shutdown='sudo shutdown -hP now & logout'
-# -k option to end sudo session immediately; sudo session might still be active
-# after wake-up without -k option
+# -k option to force password prompt for these 'big' actions
+alias reboot='sudo -k reboot; logout'
+alias shutdown='sudo -k shutdown -hP now; logout'
 alias sleep='sudo -k pm-suspend'
