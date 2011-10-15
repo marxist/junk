@@ -1,0 +1,149 @@
+#!/usr/bin/env python3
+#
+#    MirrorSort (mirror sorter/ranker for Arch Linux)
+#    Copyright (C) 2011 Kantist
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.
+#    If not, see http://www.gnu.org/licenses/gpl-3.0.html
+
+import sys
+import subprocess
+from argparse import ArgumentParser
+
+def argparser():
+    parser = ArgumentParser(description='MirrorSort (mirror sorter/ranker for Arch Linux)')
+    parser.add_argument('-f',metavar='FILE1,FILE2,...', default='',help='get server list from files')
+    parser.add_argument('-r',metavar='TIMES,SERVERS', default='', help='reflector n-times,m-servers')
+    parser.add_argument('-s',metavar='FILE',default=False, help='file to save mirrorlist to')
+    parser.add_argument('-v',default=False, const=True, action='store_const', help='verbose')
+    return parser
+
+def parse(output):
+    return [line.replace('Server = ','') for line in output.split('\n') if line.startswith('Server = ')]
+    
+def file(path):
+    try:
+        with open(path,'r') as file:
+            urllist = parse(file.read())
+    except IOError:
+        urllist = []
+    finally:
+        return urllist
+
+def reflector(servers):
+    output = subprocess.getoutput('reflector -f '+str(servers))
+    return parse(output)
+
+def mirrorsort():
+    # parse args
+    parser = argparser()
+    args = parser.parse_args()
+    f, r, s, v = args.f, args.r, args.s, args.v
+    
+    # arg files
+    f = [path for path in f.split(',') if path != '']
+    
+    # arg reflector
+    r = r.split(',')
+    try:
+        r_times = int(r[0])
+        r_servers = int(r[1])
+    except (ValueError, IndexError):
+        r_times = 0
+        r_servers = 0
+    
+    # check args
+    if len(f) == 0 and r_times <= 0:
+        parser.print_help()
+        return
+    
+    # args info
+    if v:
+        if len(f) > 0:
+            print('Files (%i):' % len(f))
+            for path in f: print(' - '+path)
+            print()
+        if r_times > 0:
+            print('Reflector:')
+            print(' - %i times' % r_times)
+            print(' - %i servers' % r_servers)
+            print()
+        if s:
+            print('Save mirrorlist to:')
+            print('   '+s)
+            print()
+    
+    # var init
+    mirrorlist = []
+    urllists = []
+    urlcount = 0
+    
+    # files
+    for path in f:
+        if v: print('File %s...' % path)
+        urllist = file(path)
+        urllists.append(urllist)
+        urlcount += len(urllist)
+        if v:
+            print('File %s: %i servers:' % (path, len(urllist)))
+            for url in urllist: print(url)
+            print()
+    
+    # reflector
+    for t in range(r_times):
+        if v: print('Reflector #%i...' % (t+1))
+        urllist = reflector(r_servers)
+        urllists.append(urllist)
+        urlcount += len(urllist)
+        if v:
+            print('Reflector #%i: %i servers:' % (t+1, len(urllist)))
+            for url in urllist: print(url)
+            print()
+    
+    # sorting
+    if v: print('Sorting %i lists with total %i servers...' % (len(urllists), urlcount))
+    for urllist in urllists:
+        score = 1000
+        for url in urllist:
+            new = True
+            for mirror in mirrorlist:
+                if url == mirror[1]:
+                    mirror[0] += score
+                    new = False
+            if new:
+                mirrorlist.append([score, url])
+            score -= 1
+    mirrorlist.sort()
+    mirrorlist.reverse()
+    if v:
+        print('Sorted. Found %i unique mirrors:' % len(mirrorlist))
+        for mirror in mirrorlist: print('%04i: %s' % (mirror[0], mirror[1]))
+        print()
+    
+    # output
+    output = '\n'.join('Server = '+mirror[1] for mirror in mirrorlist)
+    if s:
+        try:
+            with open(s, 'w') as save:
+                save.write(output)
+                if v: print('Mirrorlist saved to %s.' % s)
+        except IOError:
+            print('Couldn\'t write to %s. Here\'s the mirrorlist:' % path)
+            print(output)
+    else:
+        print('Mirrorlist:')
+        print(output)
+
+if __name__ == '__main__':
+    mirrorsort()
