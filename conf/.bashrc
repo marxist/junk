@@ -8,9 +8,6 @@
 # bash prompt
 PS1='[\u@\h \W]\$ '
 
-# xterm transparency
-[ -n "$WINDOWID" ] && transset-df -i $WINDOWID >/dev/null
-
 # path
 PATH=${PATH}:${HOME}/bin
 export PATH

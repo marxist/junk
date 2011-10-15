@@ -27,9 +27,6 @@ export EDITOR=vim
 export HISTSIZE=1000000
 export HISTCONTROL=erasedups
 export PYTHONDONTWRITEBYTECODE=1
-# path
-#PATH=${PATH}:/home/jure/bin
-#export PATH
 
 # verbose file operations
 alias cp='cp -v'
