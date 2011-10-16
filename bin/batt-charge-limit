@@ -1,0 +1,5 @@
+#!/bin/sh
+# set the battery charging thresholds to extend battery lifespan
+echo ${1:-60} > /sys/devices/platform/smapi/BAT${3:-0}/start_charge_thresh
+echo ${2:-80} > /sys/devices/platform/smapi/BAT${3:-0}/stop_charge_thresh
+echo "Battery will start charging at ${1:-60}% and stop charging at ${2:-80}%."

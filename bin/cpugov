@@ -1,0 +1,3 @@
+#!/bin/bash
+gov=${1:-ondemand}
+for i in 0 1 2 3; do cpufreq-set -c $i -g ${gov}; done

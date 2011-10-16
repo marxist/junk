@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# TODO: learn to use sed for fuck's sake
+
+# read current dpms values and state
+values=$(xset q | sed -n 's/\s*Standby://p' | sed 's/\s*Suspend://' | sed 's/\s*Off://')
+state=$(xset q | sed -n 's/\s*DPMS is //p' | sed 's/Disabled/-/' | sed 's/Enabled//')
+
+xset dpms 0 1 1
+slock
+
+# set dpms back to previous values and state
+xset ${state}dpms ${values}
