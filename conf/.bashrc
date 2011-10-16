@@ -9,8 +9,10 @@
 PS1='[\u@\h \W]\$ '
 
 # path
-PATH=${PATH}:${HOME}/bin
-export PATH
+if [[ "${PATH}" !=  *"${HOME}/bin"* ]]; then
+    PATH=${PATH}:${HOME}/bin
+    export PATH
+fi
 
 # X server
 alias x='startx & logout'
@@ -25,13 +27,13 @@ alias suln='sudo ln -v'
 alias suchmod='sudo chmod -v'
 alias suchown='sudo chown -v'
 
+# system-state commands; -k option to force password prompt
+alias reboot='sudo -k reboot; logout'
+alias shutdown='sudo -k shutdown -hP now; logout'
+
 # other sudo commands
 alias suvim='sudo vim'
 alias sunano='sudo nano -x'
 alias suconf='sudo conf'
 alias surc.d='sudo rc.d'
 alias supacman='sudo pacman'
-# -k option to force password prompt for these 'big' actions
-alias reboot='sudo -k reboot; logout'
-alias shutdown='sudo -k shutdown -hP now; logout'
-alias sleep='sudo -k pm-suspend'
