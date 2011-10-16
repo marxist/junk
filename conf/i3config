@@ -161,7 +161,10 @@ focus_follows_mouse no
 exec i3status | i3bar -d
 
 # keyboard rate delay
-exec_always xset r rate 320 25
+exec xset r rate 320 25
+
+# screen lock
+exec xautolock -time 5 -locker slock-screen-off
 
 # wallpaper
 exec_always feh --bg-scale /home/jure/.wallpaper.jpg
@@ -170,8 +173,9 @@ exec_always feh --bg-scale /home/jure/.wallpaper.jpg
 assign "roxterm/top" $ws10
 assign "roxterm/iotop" $ws10
 assign "roxterm/sensors" $ws10
+assign "roxterm/su" $ws10
 
 exec roxterm -T "top" -e top
 exec roxterm -T "iotop" -e iotop
 exec roxterm -T "sensors" -e watch -n 5 sensors
-
+exec roxterm -T "su" -e su

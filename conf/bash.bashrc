@@ -60,7 +60,7 @@ alias py3='python -B'
 
 # various commands
 alias e='exit'
-alias ping='ping -c 5 example.org'
+alias ping5='ping -c 5 example.org'
 alias nano='nano -x'
 alias lsdaemon='ls /var/run/daemons'
 alias git-commit-preview='git commit -v --dry-run -a'
@@ -68,4 +68,3 @@ alias git-commit='git commit -a -m'
 alias git-push='git push origin master'
 alias monitor='xrandr --output VGA1 --auto --left-of LVDS1'
 alias suspend='sleep-slock'
-alias slock='slock-screen-off'
