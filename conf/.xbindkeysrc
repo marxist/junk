@@ -1,0 +1,24 @@
+# lock screen
+"slock-screen-off"
+    m:0x0 + c:160
+    XF86ScreenSaver
+
+# sleep
+"sleep-slock"
+    m:0x0 + c:150
+    XF86Sleep
+
+# audio toggle mute
+"amixer -q set Master toggle"
+    m:0x0 + c:121
+    XF86AudioMute
+
+# audio down
+"amixer -q set Master 2- unmute"
+    m:0x0 + c:122
+    XF86AudioLowerVolume
+
+# audio up
+"amixer -q set Master 2+ unmute"
+    m:0x0 + c:123
+    XF86AudioRaiseVolume

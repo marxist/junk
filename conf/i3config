@@ -160,11 +160,18 @@ focus_follows_mouse no
 # finds out, if available)
 exec i3status | i3bar -d
 
+### X server
+
+# key binds
+exec xbindkeys
+
 # keyboard rate delay
 exec xset r rate 320 25
 
 # screen lock
 exec xautolock -time 5 -locker slock-screen-off
+
+### /X server
 
 # wallpaper
 exec_always feh --bg-scale /home/jure/.wallpaper.jpg

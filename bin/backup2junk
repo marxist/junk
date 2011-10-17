@@ -1,5 +1,8 @@
 #!/bin/bash
-junk="/home/jure/code/junk"
+# am I me?
+[ "$(whoami)" != "jure" ] && exit 1
+
+junk="${HOME}/code/junk"
 
 # user files
 cp -v ~/.bashrc $junk/conf/
@@ -9,6 +12,7 @@ cp -v -r ~/bin $junk/
 cp -v ~/.xinitrc $junk/conf/
 cp -v ~/.gtkrc-2.0 $junk/conf/
 cp -v ~/.config/gtk-3.0/settings.ini $junk/conf/gtk-3.0.settings.ini
+cp -v ~/.xbindkeysrc $junk/conf/
 
 # system files
 cp -v /etc/rc.conf $junk/conf/
@@ -16,3 +20,4 @@ cp -v /etc/bash.bashrc $junk/conf/
 cp -v /etc/httpd/conf/httpd.conf $junk/conf/
 cp -v /etc/php/php.ini $junk/conf/
 cp -v /etc/fancontrol $junk/conf/
+cp -v /etc/{nanorc,vimrc} $junk/conf/

@@ -22,6 +22,8 @@ elif [ "${file}" == "rc" ]; then
     file="/etc/rc.conf"
 elif [ "${file}" == "xinit" ]; then
     file="${HOME}/.xinitrc"
+elif [ "${file}" == "todo" ]; then
+    file="${HOME}/TODO"
 fi
 
 echo "Full command: ${tool} ${file}" & ${tool} ${file}
