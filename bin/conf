@@ -24,6 +24,12 @@ elif [ "${file}" == "xinit" ]; then
     file="${HOME}/.xinitrc"
 elif [ "${file}" == "todo" ]; then
     file="${HOME}/TODO"
+elif [ "${file}" == "fstab" ]; then
+    file="/etc/fstab"
+elif [ "${file}" == "vim" ]; then
+    file="/etc/vimrc"
+elif [ "${file}" == "nano" ]; then
+    file="/etc/nanorc"
 fi
 
 echo "Full command: ${tool} ${file}" & ${tool} ${file}

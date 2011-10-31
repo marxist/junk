@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# /etc/rc.local: Local multi-user startup script.
+#
+
+rc.d restart fancontrol
+
+# disable bluetooth (possible to reenable later)
+rfkill block bluetooth
+
+# set charge limits for battery 0
+batt-charge-limit 60 80 0
+
+exit 0

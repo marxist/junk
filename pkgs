@@ -1,0 +1,26 @@
+[system stuff]
+acpi,fan	acpid,sensors,fancontrol
+batt		tp_smapi
+net		ufw,netcfg,wifi-select,samba
+mount		gvfs,gvfs-smb,pmount,bashmount
+bootloader	burg
+mirrors		curl,reflector
+laptop		laptop-mode-tools,cpufreq-utils
+
+[apps]
+editor		vim,nano,geany
+wm		i3
+term		roxterm
+web		firefox
+media		mplayer,audacious
+pdf		evince-gtk
+office		libreoffice
+fm		thunar,ranger
+pics		gpicview,gimp
+lock		slock
+gtk		dmz-vanilla-black,tango,clearlooks,newlooks
+chat		pidgin,irssi
+dev		eclipse(pydev,cdt,aptana)
+subs		submarine
+torrents	rtorrent,rutorrent
+server		http,mysql,postgresql,php,phppgadmin,phpmyadmin

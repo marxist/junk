@@ -14,11 +14,11 @@ runtime! archlinux.vim
 " Or better yet, read /usr/share/vim/vim72/vimrc_example.vim or the vim manual
 " and configure vim to your own liking!
 
-set tabstop=4       " Number of spaces that a <Tab> in the file counts for.
+set tabstop=8       " Number of spaces that a <Tab> in the file counts for.
  
 set shiftwidth=4    " Number of spaces to use for each step of (auto)indent.
  
-""set expandtab       " Use the appropriate number of spaces to insert a <Tab>.
+" set expandtab       " Use the appropriate number of spaces to insert a <Tab>.
                     " Spaces are used in indents with the '>' and '<' commands
                     " and when 'autoindent' is on. To insert a real tab when
                     " 'expandtab' is on, use CTRL-V <Tab>.
@@ -53,11 +53,11 @@ set backspace=2     " Influences the working of <BS>, <Del>, CTRL-W
                     " separated by commas. Each item allows a way to backspace
                     " over something.
  
-""set autoindent      " Copy indent from current line when starting a new line
+" set autoindent      " Copy indent from current line when starting a new line
                     " (typing <CR> in Insert mode or when using the "o" or "O"
                     " command).
  
-set textwidth=79    " Maximum width of text that is being inserted. A longer
+" set textwidth=79    " Maximum width of text that is being inserted. A longer
                     " line will be broken after white space to get this width.
  
 set formatoptions=c,q,r,t " This is a sequence of letters which describes how
@@ -81,12 +81,14 @@ set background=dark " When set to "dark", Vim will try to use colors that look
                     " try to use colors that look good on a light background.
                     " Any other value is illegal.
  
-""set mouse=a         " Enable the use of the mouse.
+" set mouse=a         " Enable the use of the mouse.
  
 filetype plugin indent on
-""syntax on
+syntax on
 colorscheme default
 
 set nobackup
 set nowritebackup
 set noswapfile
+
+set viminfo=""

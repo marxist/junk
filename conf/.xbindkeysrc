@@ -22,3 +22,8 @@
 "amixer -q set Master 2+ unmute"
     m:0x0 + c:123
     XF86AudioRaiseVolume
+
+# screenshot
+"scrot '/home/jure/pics/screens/%Y-%m-%d_%H-%M-%S.png'"
+    m:0x0 + c:107
+    Print

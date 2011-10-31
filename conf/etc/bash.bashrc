@@ -26,6 +26,7 @@ esac
 export EDITOR=vim
 export HISTSIZE=1000000
 export HISTCONTROL=erasedups
+export PYTHONPATH=/home/jure/lib/py
 export PYTHONDONTWRITEBYTECODE=1
 
 # verbose file operations
@@ -43,7 +44,7 @@ alias rmmod='rmmod -v'
 alias modprobe='modprobe -v'
 
 # coloured output
-alias ls='ls -H --color=auto'
+alias ls='ls -h --color=auto'
 alias grep='grep --color=auto'
 
 # filesystem navigation
@@ -67,4 +68,13 @@ alias git-commit-preview='git commit -v --dry-run -a'
 alias git-commit='git commit -a -m'
 alias git-push='git push origin master'
 alias monitor='xrandr --output VGA1 --auto --left-of LVDS1'
+alias monitor-off='xrandr --output VGA1 --off'
 alias suspend='sleep-slock'
+alias lock='slock-screen-off'
+alias mplay='mplayer'
+alias mplayq='mplayer -quiet'
+alias mplayqn='mplayer -quiet -a52drc 1.5'
+alias mplayqq='mplayer -really-quiet'
+alias wlantop='iftop -i wlan0'
+alias dirsize='du -h --max-depth=1'
+alias screenshot="scrot '/home/jure/pics/screens/%Y-%m-%d_%H-%M-%S.png'"
