@@ -56,8 +56,8 @@ conf/pidgin
 .gtkrc-2.0
 .config/gtk-3.0/settings.ini:gtk-3.0.settings.ini
 .config/junkbackup
+.eclipse/org*/conf*/config.ini:.eclipse.config.ini
 .eclipse/org*/conf*/.sett*/*ui.ide.prefs
-#.eclipse/org.eclipse.platform_3.7.0_1543616141/configuration/.settings/org.eclipse.ui.ide.prefs
 
 [/home/jure/bin:bin]
 *
