@@ -1,2 +1,3 @@
 bin/    ...   custom PATH dir with my own scripts
 conf/   ...   various config files
+lib/    ...   custom libs, just links to original path (for reference)
