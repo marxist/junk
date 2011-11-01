@@ -17,6 +17,9 @@ fi
 # X server
 alias x='startx & logout'
 
+# pass aliases to sudo (note the space)
+alias sudo='sudo '
+
 # sudo file operations
 alias sucp='sudo cp -v'
 alias sumv='sudo mv -v'
@@ -32,8 +35,8 @@ alias reboot='sudo -k reboot; logout'
 alias shutdown='sudo -k shutdown -hP now; logout'
 
 # other sudo commands
+alias sued='sudo confedit'
 alias suvim='sudo vim'
 alias sunano='sudo nano -x'
-alias suconf='sudo conf'
 alias surc.d='sudo rc.d'
 alias supacman='sudo pacman'

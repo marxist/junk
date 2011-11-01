@@ -24,3 +24,4 @@ dev		eclipse(pydev,cdt,aptana)
 subs		submarine
 torrents	rtorrent,rutorrent
 server		http,mysql,postgresql,php,phppgadmin,phpmyadmin
+burning ISOs	cdrecord

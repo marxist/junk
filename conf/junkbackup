@@ -1,31 +1,5 @@
 # JunkBackup config file (~/.config/junkbackup)
 # (path to config can be changed in bin script)
-#
-# Syntax:
-#
-# [FLAGS] -> default flags (so that you don't need aliases)
-# COPY
-# ASKCOPY
-# CLEAN
-# ASKREMOVE
-# VERBOSE
-# DRYRUN
-#
-# [ROOT] -> absolute path of your backup directory
-# /backup/root/path
-#
-# [NOCOPY] -> stuff that matches pattern, but you don't want to copy
-# filename
-# subdir/filename
-#
-# [NOREMOVE] -> stuff that you put manually in your backup directory
-# filename
-# subdir/filename
-#
-# [/source/root/path:target/root/path] -> source:target (ROOT applied)
-# /source/filename1:subdir/filename2
-# /source/filename3:filename4
-# /source/filename5
 
 [FLAGS]
 #CLEAN
@@ -56,6 +30,7 @@ conf/pidgin
 .gtkrc-2.0
 .config/gtk-3.0/settings.ini:gtk-3.0.settings.ini
 .config/junkbackup
+.config/confedit
 .eclipse/org*/conf*/config.ini:.eclipse.config.ini
 .eclipse/org*/conf*/.sett*/*ui.ide.prefs
 
@@ -72,6 +47,7 @@ rc.d/fancontrol:rc.d.fancontrol
 rc.d/functions:rc.d.functions
 rc.sysinit
 bash.bashrc
+sudoers
 vimrc
 nanorc
 fancontrol

@@ -1,1 +1,2 @@
 sound command: aplay %s
+plugins -> message notification -> set window manager "URGENT" hint

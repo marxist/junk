@@ -61,20 +61,32 @@ alias py3='python -B'
 
 # various commands
 alias e='exit'
-alias ping5='ping -c 5 example.org'
+alias ed='confedit'
 alias nano='nano -x'
 alias lsdaemon='ls /var/run/daemons'
+alias dirsize='du -h --max-depth=1'
+
+# git shortcuts
 alias git-commit-preview='git commit -v --dry-run -a'
 alias git-commit='git commit -a -m'
 alias git-push='git push origin master'
+
+# monitor
 alias monitor='xrandr --output VGA1 --auto --left-of LVDS1'
 alias monitor-off='xrandr --output VGA1 --off'
+
+# suspend and lock
 alias suspend='sleep-slock'
 alias lock='slock-screen-off'
+
+# mplayer (TODO: organize better)
 alias mplay='mplayer'
 alias mplayq='mplayer -quiet'
 alias mplayqn='mplayer -quiet -a52drc 1.5'
 alias mplayqq='mplayer -really-quiet'
+
+# net
 alias wlantop='iftop -i wlan0'
-alias dirsize='du -h --max-depth=1'
+alias ping5='ping -c 5 example.org'
+
 alias screenshot="scrot '/home/jure/pics/screens/%Y-%m-%d_%H-%M-%S.png'"

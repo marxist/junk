@@ -1,0 +1,39 @@
+[TOOLS]
+vim
+nano
+geany
+
+
+[PATHS]
+HOME=/home/jure
+
+
+[FILES]
+# bash
+bash=$HOME/.bashrc
+BASH=/etc/bash.bashrc
+
+# my stuff
+confedit=$HOME/.config/confedit
+backup=$HOME/.config/junkbackup
+todo=$HOME/TODO
+pkgs=$HOME/code/junk/pkgs
+
+# X stuff
+xinit=$HOME/.xinitrc
+xbind=$HOME/.xbindkeysrc
+i3=$HOME/.i3/config
+
+# programs
+rtor=$HOME/.rtorrent.rc
+
+# editors
+vim=/etc/vimrc
+nano=/etc/nanorc
+
+# system
+rc=/etc/rc.conf
+fstab=/etc/fstab
+fan=/etc/fancontrol
+httpd=/etc/httpd/conf/httpd.conf
+php=/etc/php/php.ini
