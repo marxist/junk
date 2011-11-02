@@ -9,11 +9,11 @@ function fancontrol_running() {
     daemons=$(ls /var/run/daemons)
     case $daemons in
         *"fancontrol"*)
-	    return 0
-	    ;;
+            return 0
+            ;;
         *)
-	    return 1
-	    ;;
+            return 1
+            ;;
     esac
 }
 
