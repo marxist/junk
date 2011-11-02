@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [ "$(whoami)" != "root" ]; then
+    echo "You need to be root to do this."
+    exit 1
+fi
+
+function fancontrol_running() {
+    daemons=$(ls /var/run/daemons)
+    case $daemons in
+        *"fancontrol"*)
+	    return 0
+	    ;;
+        *)
+	    return 1
+	    ;;
+    esac
+}
+
+until fancontrol_running
+do
+    rc.d start fancontrol > /dev/null
+    sleep 1
+done
+
+echo "Fancontrol is running."
+
+exit 0
