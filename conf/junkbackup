@@ -43,11 +43,12 @@ conf/pidgin
 [/etc:conf/etc]
 rc.conf
 rc.local
+rc.local.shutdown
 rc.d/fancontrol:rc.d.fancontrol
 rc.d/functions:rc.d.functions
 rc.sysinit
 bash.bashrc
-sudoers
+#sudoers
 vimrc
 nanorc
 fancontrol

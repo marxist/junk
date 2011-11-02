@@ -3,7 +3,8 @@
 # /etc/rc.local: Local multi-user startup script.
 #
 
-rc.d restart fancontrol
+# make sure fancontrol starts by running this script
+fancontroller
 
 # disable bluetooth (possible to reenable later)
 rfkill block bluetooth

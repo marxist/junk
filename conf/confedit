@@ -33,6 +33,7 @@ nano=/etc/nanorc
 
 # system
 rc=/etc/rc.conf
+rc.local=/etc/rc.local
 fstab=/etc/fstab
 fan=/etc/fancontrol
 httpd=/etc/httpd/conf/httpd.conf

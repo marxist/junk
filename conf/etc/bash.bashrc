@@ -63,13 +63,16 @@ alias py3='python -B'
 alias e='exit'
 alias ed='confedit'
 alias nano='nano -x'
-alias lsdaemon='ls /var/run/daemons'
+alias lsd='ls /var/run/daemons'
 alias dirsize='du -h --max-depth=1'
+alias backup='junkbackup'
 
 # git shortcuts
 alias git-commit-preview='git commit -v --dry-run -a'
 alias git-commit='git commit -a -m'
 alias git-push='git push origin master'
+alias git-untrack='git update-index --assume-unchanged'
+alias git-track='git update-index --no-assume-unchanged'
 
 # monitor
 alias monitor='xrandr --output VGA1 --auto --left-of LVDS1'
@@ -88,5 +91,6 @@ alias mplayqq='mplayer -really-quiet'
 # net
 alias wlantop='iftop -i wlan0'
 alias ping5='ping -c 5 example.org'
+alias rtor='rtorrent'
 
 alias screenshot="scrot '/home/jure/pics/screens/%Y-%m-%d_%H-%M-%S.png'"
