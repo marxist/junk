@@ -4,7 +4,7 @@
 #
 
 # make sure fancontrol starts by running this script
-fancontroller
+fancontroller &
 
 # disable bluetooth (possible to reenable later)
 rfkill block bluetooth
