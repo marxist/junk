@@ -54,14 +54,26 @@ alias ..='cd ..'
 alias ....='cd ../..'
 alias ......='cd ../../..'
 
+# pacman
+alias pacman-orphans='pacman -Qdt'
+alias pacman-by-me='pacman -Qet'
+
 # interpreters
 alias py='python -B'
 alias py2='python2 -B'
 alias py3='python -B'
 
+# force password for all users, including root
+# yes, if one were to use my computer while root was logged in,
+# one could change these aliases. but one would still have to re-login
+# for aliases to take effect. thus, one would have to know the root password
+# anyway if one wanted to shutdown or reboot my computer
+alias reboot='sudo -k reboot; logout'
+alias shutdown='sudo -k shutdown -hP now; logout'
+
 # various commands
 alias e='exit'
-alias ed='confedit'
+alias clr='clear'
 alias nano='nano -x'
 alias lsd='ls /var/run/daemons'
 alias dirsize='du -h --max-depth=1'
@@ -73,6 +85,7 @@ alias git-commit='git commit -a -m'
 alias git-push='git push origin master'
 alias git-untrack='git update-index --assume-unchanged'
 alias git-track='git update-index --no-assume-unchanged'
+alias git-ls='git ls-files'
 
 # monitor
 alias monitor='xrandr --output VGA1 --auto --left-of LVDS1'
@@ -88,8 +101,9 @@ alias mplayq='mplayer -quiet'
 alias mplayqn='mplayer -quiet -a52drc 1.5'
 alias mplayqq='mplayer -really-quiet'
 
-# net
-alias wlantop='iftop -i wlan0'
+# net (iftop need root permission)
+alias wlantop='sudo iftop -i wlan0'
+alias ethtop='sudo iftop -i eth0'
 alias ping5='ping -c 5 example.org'
 alias rtor='rtorrent'
 

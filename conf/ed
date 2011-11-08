@@ -1,6 +1,6 @@
 [TOOLS]
 vim
-nano
+nano=nano -x
 geany
 
 
@@ -14,8 +14,9 @@ bash=$HOME/.bashrc
 BASH=/etc/bash.bashrc
 
 # my stuff
-confedit=$HOME/.config/confedit
-backup=$HOME/.config/junkbackup
+ed=$HOME/.config/ed
+=$ed
+berthes=$HOME/.config/berthes
 todo=$HOME/TODO
 pkgs=$HOME/code/junk/pkgs
 
@@ -23,6 +24,7 @@ pkgs=$HOME/code/junk/pkgs
 xinit=$HOME/.xinitrc
 xbind=$HOME/.xbindkeysrc
 i3=$HOME/.i3/config
+i3status=$HOME/.config/i3status/config
 
 # programs
 rtor=$HOME/.rtorrent.rc
@@ -38,3 +40,7 @@ fstab=/etc/fstab
 fan=/etc/fancontrol
 httpd=/etc/httpd/conf/httpd.conf
 php=/etc/php/php.ini
+burg=/boot/burg/burg.cfg
+laptop=/etc/laptop-mode/laptop-mode.conf
+alsa=/etc/asound.conf
+fonts=/etc/fonts/local.conf

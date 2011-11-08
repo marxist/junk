@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+import berthes
+
+# (optional) change config path and uncomment it:
+#berthes.CONF_PATH = '/home/myname/.config/berthes'
+
+berthes.cli_init()
+BT = berthes.parse_file()
+if BT: BT.run()

@@ -1,0 +1,15 @@
+1. move cache to memory:
+  browser.cache.disk.parent_directory="/dev/shm/firefox-cache" (about:config)
+2. addons:
+  noscript
+  adblock plus (fanboy's list, easylist, social widget list)
+  certificate patrol
+  flashblock
+  https everywhere
+  priv3
+  privacychoice trackerblock
+  betterprivacy
+  righ-aligned bookmarks bar
+  xmarks
+  british, slovene, US dictionary
+  vimperator

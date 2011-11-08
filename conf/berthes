@@ -21,6 +21,7 @@ pkgs
 conf/smb.conf
 conf/pidgin
 conf/etc/sudoers
+conf/firefox
 
 [/home/jure:conf]
 .bashrc
@@ -30,8 +31,8 @@ conf/etc/sudoers
 .i3/config:.i3.config
 .gtkrc-2.0
 .config/gtk-3.0/settings.ini:gtk-3.0.settings.ini
-.config/junkbackup
-.config/confedit
+.config/ed
+.config/berthes
 .eclipse/org*/conf*/config.ini:.eclipse.config.ini
 .eclipse/org*/conf*/.sett*/*ui.ide.prefs
 
@@ -55,6 +56,7 @@ nanorc
 fancontrol
 httpd/conf/httpd.conf
 php/php.ini
+laptop-mode/laptop-mode.conf
 
 [/usr/share:conf/share]
 eclipse/eclipse.ini

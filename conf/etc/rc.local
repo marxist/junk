@@ -4,12 +4,15 @@
 #
 
 # make sure fancontrol starts by running this script
-fancontroller &
+fancontroller babysitter &
 
 # disable bluetooth (possible to reenable later)
 rfkill block bluetooth
 
 # set charge limits for battery 0
 batt-charge-limit 60 80 0
+
+# move some junk to RAM
+/home/jure/bin/rammer > /dev/null
 
 exit 0

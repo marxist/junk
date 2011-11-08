@@ -3,27 +3,15 @@
 . /etc/rc.conf
 . /etc/rc.d/functions
 
-PWM_PATH="/sys/class/hwmon/hwmon1/device/pwm1"
-SPEED=127
-
-function go_rouge() {
-  echo "1" > "${PWM_PATH}_enable"
-  sleep 2
-  echo "${SPEED}" > "${PWM_PATH}"
-}
-
 PID=$(pidof -o %PPID -x /usr/sbin/fancontrol)
 case "$1" in
   start)
     stat_busy "Starting fancontrol"
-    /usr/bin/sensors -s
     [ -z "$PID" ] && /usr/sbin/fancontrol -D &>/dev/null
     if [ $? -gt 0 -o -n "$PID" ]; then
       stat_fail
     else
       add_daemon fancontrol
-      # NON-DEFAULT:
-      go_rouge &
       stat_done
     fi
     ;;
@@ -34,8 +22,7 @@ case "$1" in
       stat_fail
     else
       rm_daemon fancontrol
-      # NON-DEFAULT:
-      go_rouge &
+      fancontroller rouge until-fancontrol > /dev/null &
       stat_done
     fi
     ;;

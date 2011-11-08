@@ -1,28 +1,124 @@
 #!/bin/bash
 
-if [ "$(whoami)" != "root" ]; then
-    echo "You need to be root to do this."
-    exit 1
-fi
+# interval in seconds
+INTERVAL=5
 
-function fancontrol_running() {
-    daemons=$(ls /var/run/daemons)
-    case $daemons in
-        *"fancontrol"*)
-            return 0
-            ;;
-        *)
-            return 1
-            ;;
-    esac
+# paths
+PWM_PATH="/sys/devices/platform/thinkpad_hwmon/pwm1"
+TEMP_PATH="/sys/devices/platform/thinkpad_hwmon/temp1_input"
+
+# min speed at max temp
+PWMmax=245
+# max speed at min temp
+PWMmin=10
+
+# max temp
+Tmax=55
+# min temp
+Tmin=20
+
+function am_i_root() {
+    if [ "$(whoami)" != "root" ]; then
+        echo "You need to be root to do this."
+        exit 1
+    fi
 }
 
-until fancontrol_running
-do
-    rc.d start fancontrol > /dev/null
-    sleep 1
-done
+function pwm() {
+    if [ ! -f "${PWM_PATH}" ]; then
+        echo "0"
+    elif [ "$1" != "" ]; then
+        echo "$1" > "${PWM_PATH}"
+    else
+        echo $(cat "${PWM_PATH}")
+    fi
+}
 
-echo "Fancontrol is running."
+function pwm_enable() {
+    if [ ! -f "${PWM_PATH}_enable" ]; then
+        echo "1"
+    elif [ "$1" != "" ]; then
+        echo "$1" > "${PWM_PATH}_enable"
+    else
+        echo $(cat "${PWM_PATH}_enable")
+    fi
+}
+
+function temp() {
+    if [ ! -f "${TEMP_PATH}" ]; then
+        echo "-1"
+    else
+        echo $(cat "${TEMP_PATH}")
+    fi
+}
+
+function fancontrol_running() {
+    if [ -f "/var/run/fancontrol.pid" ] && [ -f "/var/run/daemons/fancontrol" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+function babysitter() {
+    tries=0
+    until fancontrol_running && [ $(pwm_enable) == "1" ]
+    do
+        rc.d restart fancontrol > /dev/null
+        tries=$((++tries))
+        if [ $((tries % 10)) == 0 ]; then
+            echo "Fancontroller babysitter status: tried ${tries} time(s)."
+        fi
+        sleep 1
+    done
+}
+
+function rouge() {
+    tries=0
+    until pwm_sanity && ( [ "$1" != "until-fancontrol" ] || fancontrol_running ) && [ "$1" != "infinite" ]
+    do
+        tries=$((++tries))
+        if [ $((tries % 10)) -eq 0 ]; then
+            echo "Fancontroller rouge status: tried ${tries} time(s)."
+        fi
+        sleep "$INTERVAL"
+    done
+}
+
+function pwm_sanity() {
+    if [ "$(pwm_enable)" != 1 ]; then
+        pwm_enable "1"
+    fi
+    T=$(temp)
+    if [ "$T" -lt "0" ]; then
+	return 0
+    fi
+    T=$((T / 1000))
+    Trate=$(( ((T - Tmin) * 1000) / (Tmax-Tmin) ))
+    PWM=$(( (Trate * (PWMmax - PWMmin)) / 1000 + PWMmin ))
+    if [ "$PWM" -lt "$PWMmin" ]; then
+        pwm "$PWMmin"
+        return 1
+    elif [ "$PWM" -gt "$PWMmax" ]; then
+        pwm "$PWMmax"
+        return 1
+    fi
+    pwm "$PWM"
+    return 0
+}
+
+am_i_root
+
+case "$1" in
+    "babysitter")
+        babysitter
+        ;;
+    "rouge")
+        rouge $2
+        ;;
+    *)
+        echo "Usage: fancontroller [babysitter | rouge [infinite | until-fancontrol]]"
+	;;
+esac
 
 exit 0

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+shm='/dev/shm'
+home='/home/jure'
+
+mkdir -p "${shm}/flash-cache/adobe"
+mkdir -p "${shm}/flash-cache/macromedia"
+mkdir -p "${shm}/thumbnails"
+
+rm -r "${home}/.adobe"
+rm -r "${home}/.macromedia"
+rm -r "${home}/.thumbnails"
+
+ln -s "${shm}/flash-cache/adobe"      "${home}/.adobe"
+ln -s "${shm}/flash-cache/macromedia" "${home}/.macromedia"
+ln -s "${shm}/thumbnails"             "${home}/.thumbnails"
+
+chown jure:users "${home}/.adobe"
+chown jure:users "${home}/.macromedia"
+chown jure:users "${home}/.thumbnails"

@@ -30,12 +30,8 @@ alias suln='sudo ln -v'
 alias suchmod='sudo chmod -v'
 alias suchown='sudo chown -v'
 
-# system-state commands; -k option to force password prompt
-alias reboot='sudo -k reboot; logout'
-alias shutdown='sudo -k shutdown -hP now; logout'
-
 # other sudo commands
-alias sued='sudo confedit'
+alias sued='sudo ed'
 alias suvim='sudo vim'
 alias sunano='sudo nano -x'
 alias surc.d='sudo rc.d'
