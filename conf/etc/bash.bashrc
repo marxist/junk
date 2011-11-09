@@ -77,7 +77,8 @@ alias clr='clear'
 alias nano='nano -x'
 alias lsd='ls /var/run/daemons'
 alias dirsize='du -h --max-depth=1'
-alias backup='junkbackup'
+alias def='dict-wrapper'
+alias backup='berthes'
 
 # git shortcuts
 alias git-commit-preview='git commit -v --dry-run -a'

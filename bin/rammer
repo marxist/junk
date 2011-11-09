@@ -2,19 +2,19 @@
 
 shm='/dev/shm'
 home='/home/jure'
+owner='jure:users'
 
-mkdir -p "${shm}/flash-cache/adobe"
-mkdir -p "${shm}/flash-cache/macromedia"
-mkdir -p "${shm}/thumbnails"
+function to_ram() {
+    if [ -d "$1" ]; then
+        rm -r "$1"
+    fi
+    if [ ! -d "$2" ]; then
+        mkdir -p "$2"
+    fi
+    ln -s "$2" "$1"
+    chown $owner "$1"
+}
 
-rm -r "${home}/.adobe"
-rm -r "${home}/.macromedia"
-rm -r "${home}/.thumbnails"
-
-ln -s "${shm}/flash-cache/adobe"      "${home}/.adobe"
-ln -s "${shm}/flash-cache/macromedia" "${home}/.macromedia"
-ln -s "${shm}/thumbnails"             "${home}/.thumbnails"
-
-chown jure:users "${home}/.adobe"
-chown jure:users "${home}/.macromedia"
-chown jure:users "${home}/.thumbnails"
+to_ram "${home}/.adobe" "${shm}/flash-cache/adobe"
+to_ram "${home}/.macromedia" "${shm}/flash-cache/macromedia"
+to_ram "${home}/.thumbnails" "${shm}/thumbnails"

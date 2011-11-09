@@ -57,6 +57,8 @@ fancontrol
 httpd/conf/httpd.conf
 php/php.ini
 laptop-mode/laptop-mode.conf
+modprobe.d/modprobe.conf
+mkinitcpio.conf
 
 [/usr/share:conf/share]
 eclipse/eclipse.ini

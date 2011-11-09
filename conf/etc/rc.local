@@ -4,7 +4,7 @@
 #
 
 # make sure fancontrol starts by running this script
-fancontroller babysitter &
+fancontroller babysitter 2>>/var/log/fancontroller.log &
 
 # disable bluetooth (possible to reenable later)
 rfkill block bluetooth
@@ -13,6 +13,6 @@ rfkill block bluetooth
 batt-charge-limit 60 80 0
 
 # move some junk to RAM
-/home/jure/bin/rammer > /dev/null
+rammer > /dev/null 2>>/var/log/rammer.log
 
 exit 0

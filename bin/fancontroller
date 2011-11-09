@@ -62,11 +62,11 @@ function fancontrol_running() {
 
 function babysitter() {
     tries=0
-    until fancontrol_running && [ $(pwm_enable) == "1" ]
+    until fancontrol_running && [ "$(pwm_enable)" == "1" ]
     do
         rc.d restart fancontrol > /dev/null
         tries=$((++tries))
-        if [ $((tries % 10)) == 0 ]; then
+        if [ "$((tries % 10))" == "0" ]; then
             echo "Fancontroller babysitter status: tried ${tries} time(s)."
         fi
         sleep 1
@@ -75,27 +75,23 @@ function babysitter() {
 
 function rouge() {
     tries=0
-    until pwm_sanity && ( [ "$1" != "until-fancontrol" ] || fancontrol_running ) && [ "$1" != "infinite" ]
+    until pwm_sanity && ( [ "$1" != "until-fancontrol" ] || fancontrol_running ) && [ "$1" != "indefinite" ]
     do
-        tries=$((++tries))
-        if [ $((tries % 10)) -eq 0 ]; then
-            echo "Fancontroller rouge status: tried ${tries} time(s)."
-        fi
         sleep "$INTERVAL"
     done
 }
 
 function pwm_sanity() {
-    if [ "$(pwm_enable)" != 1 ]; then
+    if [ "$(pwm_enable)" != "1" ]; then
         pwm_enable "1"
     fi
     T=$(temp)
     if [ "$T" -lt "0" ]; then
 	return 0
     fi
-    T=$((T / 1000))
-    Trate=$(( ((T - Tmin) * 1000) / (Tmax-Tmin) ))
-    PWM=$(( (Trate * (PWMmax - PWMmin)) / 1000 + PWMmin ))
+    T=$((T/1000))
+    Trate=$((((T-Tmin)*1000)/(Tmax-Tmin)))
+    PWM=$(((Trate*(PWMmax-PWMmin))/1000+PWMmin))
     if [ "$PWM" -lt "$PWMmin" ]; then
         pwm "$PWMmin"
         return 1
@@ -107,6 +103,14 @@ function pwm_sanity() {
     return 0
 }
 
+function disable() {
+    if fancontrol_running; then
+        rc.d stop fancontrol > /dev/null
+    fi
+    pwm_enable "0"
+    killall -e fancontroller
+}
+
 am_i_root
 
 case "$1" in
@@ -114,10 +118,13 @@ case "$1" in
         babysitter
         ;;
     "rouge")
-        rouge $2
+        rouge "$2"
+        ;;
+    "disable")
+        disable
         ;;
     *)
-        echo "Usage: fancontroller [babysitter | rouge [infinite | until-fancontrol]]"
+        echo "Usage: fancontroller [babysitter | rouge [ | until-fancontrol | indefinite]]"
 	;;
 esac
 

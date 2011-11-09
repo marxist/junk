@@ -16,7 +16,7 @@ BASH=/etc/bash.bashrc
 # my stuff
 ed=$HOME/.config/ed
 =$ed
-berthes=$HOME/.config/berthes
+backup=$HOME/.config/berthes
 todo=$HOME/TODO
 pkgs=$HOME/code/junk/pkgs
 
@@ -36,6 +36,7 @@ nano=/etc/nanorc
 # system
 rc=/etc/rc.conf
 rc.local=/etc/rc.local
+modprobe=/etc/modprobe.d/modprobe.conf
 fstab=/etc/fstab
 fan=/etc/fancontrol
 httpd=/etc/httpd/conf/httpd.conf
