@@ -1,0 +1,16 @@
+
+[roxterm profile]
+always_show_tabs=0
+background_type=0
+saturation=0.133038
+hide_menubar=1
+win_title=%s
+scrollbar_pos=0
+scroll_on_keystroke=1
+maximise=1
+full_screen=0
+allow_bold=1
+visible_bell=0
+cursor_shape=0
+cursor_blink_mode=0
+font=Monospace 10

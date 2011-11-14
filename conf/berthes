@@ -36,6 +36,7 @@ conf/firefox
 .config/berthes
 .eclipse/org*/conf*/config.ini:.eclipse.config.ini
 .eclipse/org*/conf*/.sett*/*ui.ide.prefs
+.config/roxterm.sourceforge.net:roxterm
 
 [/home/jure/bin:bin]
 *
@@ -61,6 +62,10 @@ laptop-mode/laptop-mode.conf
 modprobe.d/modprobe.conf
 mkinitcpio.conf
 pacman.d/mirrorlist
+X11/xorg.conf.d
+xorg.conf
+fonts/local.conf:fonts.local.conf
+asound.conf
 
 [/usr/share:conf/share]
 eclipse/eclipse.ini

@@ -47,3 +47,4 @@ laptop=/etc/laptop-mode/laptop-mode.conf
 alsa=/etc/asound.conf
 fonts=/etc/fonts/local.conf
 mirrors=/etc/pacman.d/mirrorlist
+alsa=/etc/asound.conf
