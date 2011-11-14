@@ -7,6 +7,7 @@ values=$(xset q | sed -n 's/\s*Standby://p' | sed 's/\s*Suspend://' | sed 's/\s*
 state=$(xset q | sed -n 's/\s*DPMS is //p' | sed 's/Disabled/-/' | sed 's/Enabled//')
 
 xset dpms 0 1 1
+#xset dpms force off
 slock
 
 # set dpms back to previous values and state

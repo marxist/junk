@@ -95,6 +95,8 @@ alias monitor-off='xrandr --output VGA1 --off'
 # suspend and lock
 alias suspend='sleep-slock'
 alias lock='slock-screen-off'
+alias lock-disable='xautolock -disable'
+alias lock-enable='xautolock -enable'
 
 # mplayer (TODO: organize better)
 alias mplay='mplayer'

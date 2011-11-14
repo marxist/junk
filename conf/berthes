@@ -28,6 +28,7 @@ conf/firefox
 .rtorrent.rc
 .xinitrc
 .xbindkeysrc
+.Xresources
 .i3/config:.i3.config
 .gtkrc-2.0
 .config/gtk-3.0/settings.ini:gtk-3.0.settings.ini
@@ -59,6 +60,7 @@ php/php.ini
 laptop-mode/laptop-mode.conf
 modprobe.d/modprobe.conf
 mkinitcpio.conf
+pacman.d/mirrorlist
 
 [/usr/share:conf/share]
 eclipse/eclipse.ini

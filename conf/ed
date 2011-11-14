@@ -19,6 +19,7 @@ ed=$HOME/.config/ed
 backup=$HOME/.config/berthes
 todo=$HOME/TODO
 pkgs=$HOME/code/junk/pkgs
+conky=$HOME/.conkyrc
 
 # X stuff
 xinit=$HOME/.xinitrc
@@ -45,3 +46,4 @@ burg=/boot/burg/burg.cfg
 laptop=/etc/laptop-mode/laptop-mode.conf
 alsa=/etc/asound.conf
 fonts=/etc/fonts/local.conf
+mirrors=/etc/pacman.d/mirrorlist

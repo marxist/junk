@@ -1,0 +1,146 @@
+#!/bin/sh
+
+# Copyright (C) 2005 - 2011  Eric Van Dewoestine
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+usage(){
+  echo "Usage: eclimd [-f eclimrc] [jvmarg ...]"
+  echo "    -f   specify the location of an eclimrc file other than the"
+  echo "         default (~/.eclimrc). Must be the first option supplied."
+}
+
+##
+# Determines eclim's home directory and sets the ECLIM_HOME var to that path.
+#
+resolve_eclim_home(){
+  FILEPATH="$0"
+
+  # handle symlink to eclimd script
+  # readlink -f is easier, but not supported on mac or bsd
+  while [ -h "$FILEPATH" ] ; do
+    PREV=$FILEPATH
+    FILEPATH=`readlink "$FILEPATH"`
+    if [ -z "$FILEPATH" -o "$FILEPATH" = "$PREV" ] ; then
+      FILEPATH=$PREV
+      break
+    fi
+
+    # handle relative symlinks (neither eclim build nor installer create these,
+    # so must have been created by the user or 3rd party installer)
+    if [ ! -f "$FILEPATH" ] ; then
+      PREVDIR=`dirname "$PREV"`
+      FILEPATH=$PREVDIR/$FILEPATH
+    fi
+  done
+
+  CURPATH=`dirname "$FILEPATH"`
+  ECLIM_HOME=`cd "$CURPATH/.." ; pwd`
+}
+
+##
+# Determines the eclipse home path and the eclipse launcher jar and sets
+# ECLIM_ECLIPSE_HOME and ECLIPSE_LAUNCHER to those results.
+#
+resolve_eclipse_launcher(){
+  #${eclipse.home}
+  if [ -z "$ECLIM_ECLIPSE_HOME" -o ! -d "$ECLIM_ECLIPSE_HOME" ]; then
+    ECLIM_ECLIPSE_HOME=`cd "$ECLIM_HOME/../../"; pwd`
+  fi
+
+  ECLIPSE_LAUNCHER=`find "$ECLIM_ECLIPSE_HOME/plugins" -name 'org.eclipse.equinox.launcher_*.jar'`
+
+  if [ ! -e "$ECLIPSE_LAUNCHER" ]; then
+    echo "Unable to locate the eclipse launcher jar." 1>&2
+    exit 1
+  fi
+}
+
+##
+# Builds a list of vm args to be passed to eclipse and sets ECLIM_VMARGS
+# accordingly.
+#
+build_vmargs(){
+  #ECLIMD_OPTS="-Djava.ext.dirs"
+  ECLIM_VMARGS="$ECLIMD_OPTS"
+
+  # attempt to grab properties from .eclimrc if available.
+  PERL=`which perl 2> /dev/null`
+  if [ -f "$ECLIMRC" -a -n "$PERL" ] ; then
+    ECLIM_VMARGS="$ECLIM_VMARGS `
+      cat "$ECLIMRC" | perl -pe '
+        # remove leading/trailing whitespace
+        s|^\s+||g ; s|\s+$|\n|g ;
+        # delete comment lines
+        s|^#.*$||g ;
+        # delete empty lines
+        s|^\n||g ;
+        # remove line continuations
+        s|\\\\\n||g ;
+        # add -D for each property
+        s|^\s*([a-zA-Z])| -D\1|g ;
+        # new line characters
+        s|\n| |g ;
+      '
+    `"
+  fi
+
+  # for osx
+  if `uname -a | grep -iq "darwin"` ; then
+    ECLIM_VMARGS="$ECLIM_VMARGS -XstartOnFirstThread"
+
+    # check if attempting to use 64bit jvm to run 32bit eclipse
+    JVM64=`java -version 2>&1 | grep "64-Bit"`
+    ECLIPSE64=`ls $ECLIM_ECLIPSE_HOME/plugins/org.eclipse.swt.*.jar | grep "x86_64"`
+    if [ -n "$JVM64" -a -z "$ECLIPSE64" ] ; then
+      ECLIM_VMARGS="-d32 $ECLIM_VMARGS"
+    fi
+  fi
+}
+
+ECLIMRC=$HOME/.eclimrc
+
+if [ "$1" = "-f" ] ; then
+  while getopts ":f:" opt ; do
+    case "$opt" in
+      f)
+        ECLIMRC="$OPTARG"
+        shift
+        shift
+        break
+        ;;
+      \?)
+        continue
+        ;;
+      :)
+        echo "missing argument for: -$OPTARG"
+        exit 1
+        ;;
+    esac
+  done
+fi
+
+resolve_eclim_home
+resolve_eclipse_launcher
+build_vmargs
+
+ECLIPSE_ARGS="-debug -clean -refresh -application org.eclim.application_headless"
+
+if [ "$1" = "start" ]; then
+  shift
+  CLASSPATH="" java $ECLIM_VMARGS "$@" -jar "$ECLIPSE_LAUNCHER" $ECLIPSE_ARGS > /dev/null &
+else
+  echo "java $ECLIM_VMARGS $@ -jar \"$ECLIPSE_LAUNCHER\" $ECLIPSE_ARGS"
+  CLASSPATH="" java $ECLIM_VMARGS "$@" -jar "$ECLIPSE_LAUNCHER" $ECLIPSE_ARGS
+fi

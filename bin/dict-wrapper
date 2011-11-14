@@ -1,0 +1,11 @@
+#!/bin/bash
+if [ ! -f "/var/run/daemons/dictd" ]; then
+    printf "dict daemon isn't running. Do you want to start it? (y/*) "
+    read confirm
+    if [ "${confirm}" == "y" ]; then
+        sudo rc.d start dictd
+	sleep 1
+    fi
+fi
+
+dict $@
