@@ -61,7 +61,7 @@ alias pacman-by-me='pacman -Qet'
 # interpreters
 alias py='python -B'
 alias py2='python2 -B'
-alias py3='python -B'
+alias py3='python3 -B'
 
 # force password for all users, including root
 # yes, if one were to use my computer while root was logged in,
@@ -73,12 +73,15 @@ alias shutdown='sudo -k shutdown -hP now; logout'
 
 # various commands
 alias e='exit'
+alias q='exit'
+alias :q='exit'
 alias clr='clear'
 alias nano='nano -x'
 alias lsd='ls /var/run/daemons'
 alias dirsize='du -h --max-depth=1'
 alias def='dict-wrapper'
 alias backup='berthes'
+alias cmdcount="cat $HOME/.bash_history | grep -c"
 
 # git shortcuts
 alias git-commit-preview='git commit -v --dry-run -a'

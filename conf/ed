@@ -19,16 +19,18 @@ ed=$HOME/.config/ed
 backup=$HOME/.config/berthes
 todo=$HOME/TODO
 pkgs=$HOME/code/junk/pkgs
-conky=$HOME/.conkyrc
 
 # X stuff
 xinit=$HOME/.xinitrc
 xbind=$HOME/.xbindkeysrc
 i3=$HOME/.i3/config
 i3status=$HOME/.config/i3status/config
+xresources=$HOME/.Xresources
+conky=$HOME/.conkyrc
 
 # programs
 rtor=$HOME/.rtorrent.rc
+dactyl=$HOME/.pentadactylrc
 
 # editors
 vim=/etc/vimrc
@@ -48,3 +50,5 @@ alsa=/etc/asound.conf
 fonts=/etc/fonts/local.conf
 mirrors=/etc/pacman.d/mirrorlist
 alsa=/etc/asound.conf
+smb=/etc/samba/smb.conf
+infinality=/etc/profile.d/infinality-settings.sh

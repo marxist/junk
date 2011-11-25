@@ -4,7 +4,7 @@ DEVPATH=hwmon1=devices/platform/thinkpad_hwmon hwmon2=devices/platform/coretemp.
 DEVNAME=hwmon1=thinkpad hwmon2=coretemp
 FCTEMPS=hwmon1/device/pwm1=hwmon1/device/temp1_input
 FCFANS=hwmon1/device/pwm1=hwmon1/device/fan1_input
-MINTEMP=hwmon1/device/pwm1=35
-MAXTEMP=hwmon1/device/pwm1=90
+MINTEMP=hwmon1/device/pwm1=20
+MAXTEMP=hwmon1/device/pwm1=55
 MINSTART=hwmon1/device/pwm1=150
 MINSTOP=hwmon1/device/pwm1=0

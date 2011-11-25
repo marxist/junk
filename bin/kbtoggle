@@ -1,0 +1,17 @@
+#!/bin/bash
+# Author: Jure Ziberna
+
+L1="si"
+L2="gb"
+
+LC=$(setxkbmap -query | sed -n 's/layout:\s*//p')
+
+if [ "${LC}" == "${L1}" ]; then
+    setxkbmap -layout "${L2}"
+    LN="${L2}"
+else
+    setxkbmap -layout "${L1}"
+    LN="${L1}"
+fi
+
+echo "Layout set to '${LN}' from '${LC}'"

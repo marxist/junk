@@ -1,4 +1,9 @@
 #!/bin/bash
+# Author: Jure Ziberna
+
 gov=${1:-ondemand}
+
+# 4 cores
 for i in 0 1 2 3; do cpufreq-set -c $i -g ${gov}; done
+
 echo -e "Governor \"${gov}\" is set to control CPU frequency."

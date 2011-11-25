@@ -1,4 +1,5 @@
 #!/bin/bash
+# Author: Jure Ziberna
 
 shm='/dev/shm'
 home='/home/jure'

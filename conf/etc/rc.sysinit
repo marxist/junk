@@ -17,14 +17,14 @@ printsep
 mountpoint -q /proc    || mount -n -t proc proc /proc -o nosuid,noexec,nodev
 mountpoint -q /sys     || mount -n -t sysfs sys /sys -o nosuid,noexec,nodev
 mountpoint -q /run     || mount -n -t tmpfs run /run -o mode=0755,size=10M,nosuid,nodev
-mountpoint -q /dev     || mount -n -t devtmpfs udev /dev -o mode=0755,size=10M,nosuid \
-	|| mount -n -t tmpfs udev /dev -o mode=0755,size=10M,nosuid
+mountpoint -q /dev     || mount -n -t devtmpfs udev /dev -o mode=0755,size=10M,nosuid ||
+	mount -n -t tmpfs udev /dev -o mode=0755,size=10M,nosuid
 mkdir -p -m 1777 /run/lock
 mkdir -p /dev/{pts,shm}
-mountpoint -q /dev/pts || mount -n /dev/pts &>/dev/null \
-	|| mount -n -t devpts devpts /dev/pts -o mode=0620,gid=5,nosuid,noexec
-mountpoint -q /dev/shm || mount -n /dev/shm &>/dev/null \
-	|| mount -n -t tmpfs shm /dev/shm -o mode=1777,nosuid,nodev
+mountpoint -q /dev/pts || mount -n /dev/pts &>/dev/null ||
+	mount -n -t devpts devpts /dev/pts -o mode=0620,gid=5,nosuid,noexec
+mountpoint -q /dev/shm || mount -n /dev/shm &>/dev/null ||
+	mount -n -t tmpfs shm /dev/shm -o mode=1777,nosuid,nodev
 
 # remount root ro to allow for fsck later on, we remount now to
 # make sure nothing can open files rw on root which would block a remount
@@ -33,8 +33,7 @@ findmnt / --options ro &>/dev/null ||
 
 run_hook sysinit_start
 
-# start up our mini logger until syslog takes over
-minilogd
+# log all console messages
 bootlogd -p /run/bootlogd.pid
 
 if [[ ! -a /usr/lib ]] ; then
@@ -239,6 +238,10 @@ if [[ $HOSTNAME ]]; then
 	echo "$HOSTNAME" >| /proc/sys/kernel/hostname && stat_done || stat_fail
 fi
 
+if [[ -s /etc/locale.conf ]]; then
+	parse_envfile /etc/locale.conf "LANG"
+	[[ $LANG ]] && LOCALE=$LANG
+fi
 if [[ ${LOCALE,,} =~ utf ]]; then
 	stat_busy "Setting Consoles to UTF-8 mode"
 		# UTF-8 consoles are default since 2.6.24 kernel
@@ -259,6 +262,12 @@ else
 		done
 		echo 0 >| /sys/module/vt/parameters/default_utf8
 	stat_done
+fi
+
+if [[ -s /etc/vconsole.conf ]]; then
+	parse_envfile /etc/vconsole.conf "${vconsolevars[@]}"
+	[[ $FONT ]] && CONSOLEFONT=$FONT
+	[[ $FONT_MAP ]] && CONSOLEMAP=$FONT_MAP
 fi
 [[ $KEYMAP ]] &&
 	status "Loading Keyboard Map: $KEYMAP" loadkeys -q $KEYMAP

@@ -37,6 +37,7 @@ conf/firefox
 .eclipse/org*/conf*/config.ini:.eclipse.config.ini
 .eclipse/org*/conf*/.sett*/*ui.ide.prefs
 .config/roxterm.sourceforge.net:roxterm
+.pentadactylrc
 
 [/home/jure/bin:bin]
 *

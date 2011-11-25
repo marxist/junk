@@ -1,0 +1,30 @@
+#!/bin/bash
+# Author: Jure Ziberna
+# reading file by lines from:
+#       http://en.kioskea.net/faq/1757-how-to-read-a-file-line-by-line
+
+CONFIG="${HOME}/.config/histclean"
+HISTORY="${HOME}/.bash_history"
+CLEAN="${HOME}/.bash_history.clean"
+
+function forget() {
+    ld_IFS=$IFS      # save the field separator
+    IFS=$'\n'     # new field separator, the end of line
+
+    hist="$(cat $HISTORY)"
+    tmp=""
+    
+    for line in "$(cat $CONFIG)"
+    do
+        tmp=$(echo "${hist}" | grep -v "${line}")
+        hist="${tmp}"
+    done
+    
+    echo "${hist}" > "${CLEAN}"
+
+    IFS=$old_IFS # restore default field separator
+}
+
+if [ -f "${CONFIG}" ]; then
+    forget
+fi
