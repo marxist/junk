@@ -1,3 +1,4 @@
-gtk-icon-theme-name = "Tango"
 gtk-theme-name = "Clearlooks"
+#gtk-theme-name = "Elements(GS-and-Classic)"
+gtk-icon-theme-name = "Tango"
 gtk-can-change-accels=1

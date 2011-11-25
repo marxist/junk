@@ -2,7 +2,7 @@
 [roxterm profile]
 always_show_tabs=0
 background_type=0
-saturation=0.133038
+saturation=0.103746
 hide_menubar=1
 win_title=%s
 scrollbar_pos=0
@@ -14,3 +14,6 @@ visible_bell=0
 cursor_shape=0
 cursor_blink_mode=0
 font=Monospace 10
+scrollback_lines=10000
+bell_highlights_tab=0
+tab_close_btn=0

@@ -1,7 +1,7 @@
 [system stuff]
 acpi,fan	acpid,sensors,fancontrol
 batt		tp_smapi
-net		ufw,netcfg,wifi-select,samba
+net		    ufw,netcfg,wifi-select,samba
 mount		gvfs,gvfs-smb,pmount,bashmount
 bootloader	burg
 mirrors		curl,reflector
@@ -9,18 +9,20 @@ laptop		laptop-mode-tools,cpufreq-utils
 
 [apps]
 editor		vim,nano,geany
-wm		i3
+wm	        i3
+fonts       lohit-fonts(unifont)
 term		roxterm
-web		firefox
+web         firefox+pentadactyl
 media		mplayer,audacious
-pdf		evince-gtk
+pdf         evince-gtk
 office		libreoffice
-fm		thunar,ranger
+fm          nautilus,ranger
 pics		gpicview,gimp
 lock		slock
-gtk		dmz-vanilla-black,tango,clearlooks,newlooks
+xorg        dmz-vanilla-black,tango
+gtk         clearlooks,newlooks,elements-theme
 chat		pidgin,irssi
-dev		eclipse(pydev,cdt,aptana)
+dev         eclipse(pydev,cdt,aptana),eclim
 subs		submarine
 torrents	rtorrent,rutorrent
 server		http,mysql,postgresql,php,phppgadmin,phpmyadmin

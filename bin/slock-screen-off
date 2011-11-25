@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Author: Jure Ziberna
 # TODO: learn to use sed for fuck's sake
 
 # read current dpms values and state
