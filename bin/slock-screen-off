@@ -12,3 +12,5 @@ slock
 
 # set dpms back to previous values and state
 xset ${state}dpms ${values}
+
+exit 0

@@ -19,3 +19,4 @@ function to_ram() {
 to_ram "${home}/.adobe" "${shm}/flash-cache/adobe"
 to_ram "${home}/.macromedia" "${shm}/flash-cache/macromedia"
 to_ram "${home}/.thumbnails" "${shm}/thumbnails"
+to_ram "${home}/.cache" "${shm}/cache"

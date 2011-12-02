@@ -1,4 +1,7 @@
 #!/bin/bash
 # not an alias, because I use it from scripts/keybindings
+
 sudo pm-suspend &
 slock-screen-off
+
+exit 0

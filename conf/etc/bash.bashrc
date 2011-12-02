@@ -22,6 +22,12 @@ esac
 
 [ -r /etc/bash_completion   ] && . /etc/bash_completion
 
+# bin path
+if [[ "${PATH}" !=  *"/home/jure/bin"* ]]; then
+    PATH=${PATH}:/home/jure/bin
+    export PATH
+fi
+
 # exports
 export EDITOR=vim
 export HISTSIZE=1000000
@@ -38,6 +44,7 @@ alias mkdir='mkdir -v'
 alias rmdir='rmdir -v'
 alias chmod='chmod -v'
 alias chown='chown -v'
+alias chgrp='chgrp -v'
 
 # verbose operations (other)
 alias rmmod='rmmod -v'
@@ -55,13 +62,15 @@ alias ....='cd ../..'
 alias ......='cd ../../..'
 
 # pacman
-alias pacman-orphans='pacman -Qdt'
-alias pacman-by-me='pacman -Qet'
+alias pacman='pacman-color'
+alias pacman-orphans='pacman-color -Qdt'
+alias pacman-by-me='pacman-color -Qet'
 
-# interpreters
+# interpreters and compilers
 alias py='python -B'
 alias py2='python2 -B'
 alias py3='python3 -B'
+alias javac='javac -Xlint:unchecked'
 
 # force password for all users, including root
 # yes, if one were to use my computer while root was logged in,
@@ -82,6 +91,7 @@ alias dirsize='du -h --max-depth=1'
 alias def='dict-wrapper'
 alias backup='berthes'
 alias cmdcount="cat $HOME/.bash_history | grep -c"
+alias rewritefs-jure="rewritefs -o config=/mnt/home/jure/.config/rewritefs,allow_other /mnt/home/jure /home/jure"
 
 # git shortcuts
 alias git-commit-preview='git commit -v --dry-run -a'
@@ -108,6 +118,7 @@ alias mplayqn='mplayer -quiet -a52drc 1.5'
 alias mplayqq='mplayer -really-quiet'
 
 # net (iftop need root permission)
+alias ethernet='ip link set eth0 up; dhcpcd'
 alias wlantop='sudo iftop -i wlan0'
 alias ethtop='sudo iftop -i eth0'
 alias ping5='ping -c 5 example.org'

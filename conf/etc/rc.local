@@ -3,6 +3,9 @@
 # /etc/rc.local: Local multi-user startup script.
 #
 
+# rewritefs
+#rewritefs -o config=/mnt/home/jure/.config/rewritefs,allow_other /mnt/home/jure /home/jure
+
 # make sure fancontrol starts by running this script
 fancontroller babysitter 2>>/var/log/fancontroller.log &
 

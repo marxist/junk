@@ -53,9 +53,10 @@ set backspace=2     " Influences the working of <BS>, <Del>, CTRL-W
                     " separated by commas. Each item allows a way to backspace
                     " over something.
  
-" set autoindent      " Copy indent from current line when starting a new line
+set autoindent      " Copy indent from current line when starting a new line
                     " (typing <CR> in Insert mode or when using the "o" or "O"
                     " command).
+set copyindent
  
 " set textwidth=79    " Maximum width of text that is being inserted. A longer
                     " line will be broken after white space to get this width.
@@ -85,7 +86,8 @@ set background=dark " When set to "dark", Vim will try to use colors that look
  
 filetype plugin indent on
 syntax on
-colorscheme jure
+" colorscheme jure
+colorscheme default
 
 set nobackup
 set nowritebackup
