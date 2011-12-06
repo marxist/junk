@@ -12,14 +12,14 @@ map -modes=n,v ć -builtin <decrement-url-path>
 map -modes=n,v ž -builtin <increment-url-path>
 
 """ remap Ctrl-stuff to original actions """
-map -modes=n,v,i <C-a> -builtin <C-v><C-a>
-map -modes=n,v,i <C-c> -builtin <C-v><C-c>
-map -modes=n,v,i <C-x> -builtin <C-v><C-x>
-map -modes=n,v,i <C-y> -builtin <C-v><C-y>
-" map -modes=i <C-z> -builtin <C-v><C-z>
-map -modes=n,v,i <C-v> -builtin <C-v><C-v>
+map -modes=n,v,i,c <C-a> -builtin <pass-next-key><C-a>
+map -modes=n,v,i,c <C-c> -builtin <pass-next-key><C-c>
+map -modes=n,v,i,c <C-x> -builtin <pass-next-key><C-x>
+map -modes=n,v,i,c <C-y> -builtin <pass-next-key><C-y>
+map -modes=n,v,i,c <C-z> -builtin <pass-next-key><C-z>
+map -modes=n,v,i,c <C-v> -builtin <pass-next-key><C-v>
 
-" set defsearch=duckduckgo-ssl
+set defsearch=duckduckgo-ssl
 set editor=geany
 
 " vim: set ft=pentadactyl:

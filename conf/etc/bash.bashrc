@@ -70,7 +70,7 @@ alias pacman-by-me='pacman-color -Qet'
 alias py='python -B'
 alias py2='python2 -B'
 alias py3='python3 -B'
-alias javac='javac -Xlint:unchecked'
+alias javac='javac -Xlint:all'
 
 # force password for all users, including root
 # yes, if one were to use my computer while root was logged in,

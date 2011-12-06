@@ -34,6 +34,7 @@ conf/firefox
 .config/gtk-3.0/settings.ini:gtk-3.0.settings.ini
 .config/ed
 .config/berthes
+.config/histclean
 .eclipse/org*/conf*/config.ini:.eclipse.config.ini
 .eclipse/org*/conf*/.sett*/*ui.ide.prefs
 .config/roxterm.sourceforge.net:roxterm

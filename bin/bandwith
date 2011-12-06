@@ -1,0 +1,10 @@
+#!/bin/bash
+# Author of the awk thing: point_to_null from commandlinefu
+
+interface="${1:-wlan0}"
+
+while true;
+    do
+        cat /proc/net/dev
+        sleep 1
+    done | awk -v dc="date \"+%T\"" "/${interface}/{i = \$2 - oi; o = \$10 - oo; oi = \$2; oo = \$10; dc|getline d; close(dc); if (a++) printf \"%s %8.2f KiB/s in %8.2f KiB/s out\\n\", d, i/1024, o/1024}"

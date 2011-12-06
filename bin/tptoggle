@@ -1,0 +1,3 @@
+#!/bin/bash
+# Source: https://wiki.archlinux.org/index.php/Touchpad_Synaptics#Software_Toggle
+synclient $(synclient -l | grep TouchpadOff | tr -d ' ' | tr 01 10)

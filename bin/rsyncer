@@ -1,0 +1,23 @@
+#!/bin/bash
+# Author: Jure Ziberna
+
+if [ -d /media/Backup/GNULinux ]; then
+    echo -e "\e[32m::\e[0m Starting backup to backup drive.";
+    rsync -a --delete -R /home/jure /media/Backup/GNULinux $@
+    rsync -a --delete -R /etc /media/Backup/GNULinux $@
+    rsync -a --delete -R /var/lib/pacman/local /media/Backup/GNULinux $@
+    #rsync -a --delete -R /data/pics /media/Backup
+else
+    echo -e "\e[31m::\e[0m Plug-in your backup drive, dude!"
+fi
+
+if [ -d /data/backup ]; then
+    echo -e "\e[32m::\e[0m Starting backup to /data/backup.";
+    rsync -arR --delete /home/jure /data/backup $@
+    rsync -arR --delete /etc /data/backup $@
+    rsync -arR --delete /var/lib/pacman/local /data/backup $@
+else
+    echo -e "\e[31m::\e[0m /data/backup doesn't exist, dude!";
+fi
+
+exit 0

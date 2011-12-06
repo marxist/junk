@@ -1,0 +1,10 @@
+^su$
+^exit$
+^e$
+^logout$
+^ls$
+^ls -l$
+^ls -a$
+^sudo pacman -Syu$
+^sudo pacman -Qu$
+^yaourt -Syua$

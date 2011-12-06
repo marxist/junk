@@ -27,3 +27,13 @@
 "scrot '/home/jure/pics/screens/%Y-%m-%d_%H-%M-%S.png'"
     m:0x0 + c:107
     Print
+
+# keyboard layout toggle
+"kbtoggle"
+    m:0x4c + c:45
+    Control+Alt+Mod4 + k
+
+# touchpad on-off toggle
+"tptoggle"
+    m:0x0 + c:199
+    XF86TouchpadToggle
