@@ -19,7 +19,7 @@ map -modes=n,v,i,c <C-y> -builtin <pass-next-key><C-y>
 map -modes=n,v,i,c <C-z> -builtin <pass-next-key><C-z>
 map -modes=n,v,i,c <C-v> -builtin <pass-next-key><C-v>
 
-set defsearch=duckduckgo-ssl
+" set defsearch=duckduckgo-ssl
 set editor=geany
 
 " vim: set ft=pentadactyl:

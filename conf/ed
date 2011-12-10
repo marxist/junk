@@ -45,6 +45,7 @@ rc=/etc/rc.conf
 rc.local=/etc/rc.local
 modprobe=/etc/modprobe.d/modprobe.conf
 fstab=/etc/fstab
+pacman=/etc/pacman.conf
 fan=/etc/fancontrol
 httpd=/etc/httpd/conf/httpd.conf
 php=/etc/php/php.ini
