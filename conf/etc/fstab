@@ -1,0 +1,32 @@
+# 
+# /etc/fstab: static file system information
+#
+# <file system>		<dir>		<type>		<options>				<dump>	<pass>
+#/dev/sda8		/boot		ext4		defaults				0	1
+# devpts & shm are just for reference (not needed anymore, rc.sysinit is handling them)
+#devpts			/dev/pts	devpts		defaults				0	0
+#shm			/dev/shm	tmpfs		nodev,nosuid				0	0
+# /tmp and /var/{log,run,lock} mounted in RAM
+tmpfs			/tmp		tmpfs		nodev,nosuid				0	0
+# SWAP
+/dev/sda4		swap		swap		defaults				0	0
+# ROOT
+/dev/sda7		/   		ext4		defaults,noatime,commit=600		0	1
+# var
+/dev/sda9		/var		ext4		defaults,noatime,commit=600		0	1
+tmpfs			/var/log	tmpfs		defaults,noexec,nosuid			0	0
+#tmpfs			/var/run	tmpfs		defaults,noexec,nosuid			0	0
+#tmpfs			/var/lock	tmpfs		defaults,noexec,nosuid			0	0
+# home
+/dev/sda10		/home	ext4		defaults,noatime,commit=600		0	1
+# rewritefs#/mnt/home/jure /home/jure fuse config=/mnt/home/jure/.config/rewritefs,allow_other 0 0
+# Arch (prev install)
+/dev/sda5		/media/arch	ext4		defaults,noauto,noatime,commit=600		0	1
+# Windows
+/dev/sda1		/media/win	ntfs-3g		noauto,gid=users,fmask=113,dmask=002		0	0
+# data
+/dev/sda11		/data   	ext4		defaults,users,noatime,commit=598		0	1
+# Ubuntu
+/dev/sda6		/media/ubuntu	ext4		defaults,noauto,noatime,commit=600		0	1
+# USB example
+#/dev/sdb		/media/usb	vfat		rw,noauto,async,user			0	0
