@@ -8,6 +8,8 @@
 # bash prompt
 PS1='[\u@\h \W]\$ '
 
+export TERM=xterm-256color
+
 # path
 if [[ "${PATH}" !=  *"${HOME}/bin"* ]]; then
     PATH=${PATH}:${HOME}/bin

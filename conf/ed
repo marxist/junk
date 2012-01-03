@@ -43,6 +43,7 @@ nano=/etc/nanorc
 # system
 rc=/etc/rc.conf
 rc.local=/etc/rc.local
+functions=/etc/rc.d/functions
 modprobe=/etc/modprobe.d/modprobe.conf
 fstab=/etc/fstab
 pacman=/etc/pacman.conf

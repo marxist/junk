@@ -10,15 +10,14 @@ echo " "
 #printhl "Arch Linux\n"
 #printhl "${C_H2}http://www.archlinux.org"
 foundations
-
 printsep
 
 # mount /proc, /sys, /run, /dev, /run/lock, /dev/pts, /dev/shm (the api filesystems)
 mountpoint -q /proc    || mount -n -t proc proc /proc -o nosuid,noexec,nodev
 mountpoint -q /sys     || mount -n -t sysfs sys /sys -o nosuid,noexec,nodev
-mountpoint -q /run     || mount -n -t tmpfs run /run -o mode=0755,size=10M,nosuid,nodev
-mountpoint -q /dev     || mount -n -t devtmpfs udev /dev -o mode=0755,size=10M,nosuid ||
-	mount -n -t tmpfs udev /dev -o mode=0755,size=10M,nosuid
+mountpoint -q /run     || mount -n -t tmpfs run /run -o mode=0755,nosuid,nodev
+mountpoint -q /dev     || mount -n -t devtmpfs udev /dev -o mode=0755,nosuid ||
+	mount -n -t tmpfs udev /dev -o mode=0755,nosuid
 mkdir -p -m 1777 /run/lock
 mkdir -p /dev/{pts,shm}
 mountpoint -q /dev/pts || mount -n /dev/pts &>/dev/null ||
@@ -26,10 +25,12 @@ mountpoint -q /dev/pts || mount -n /dev/pts &>/dev/null ||
 mountpoint -q /dev/shm || mount -n /dev/shm &>/dev/null ||
 	mount -n -t tmpfs shm /dev/shm -o mode=1777,nosuid,nodev
 
-# remount root ro to allow for fsck later on, we remount now to
-# make sure nothing can open files rw on root which would block a remount
-findmnt / --options ro &>/dev/null ||
-	status "Mounting Root Read-Only" mount -n -o remount,ro /
+if [[ ! -e /run/initramfs/fsck-root ]]; then
+	# remount root ro to allow for fsck later on, we remount now to
+	# make sure nothing can open files rw on root which would block a remount
+	findmnt / --options ro &>/dev/null ||
+		status "Mounting Root Read-Only" mount -n -o remount,ro /
+fi
 
 run_hook sysinit_start
 
@@ -198,17 +199,8 @@ fsck_reboot $fsckret
 status "Remounting Root Read/Write" \
 	mount -n -o remount,rw /
 
-# don't touch /etc/mtab if it is a symlink to /proc/self/mounts
-if [[ ! -L /etc/mtab ]]; then
-	stat_busy "Creating mtab"
-		rm -f /etc/mtab~* # delete any stale locks
-		if [[ -x $(type -P findmnt) && -e /proc/self/mountinfo ]]; then
-			findmnt -rnu -o SOURCE,TARGET,FSTYPE,OPTIONS >| /etc/mtab
-		else
-			cat /proc/mounts >| /etc/mtab
-		fi
-	(( $? == 0 )) && stat_done || stat_fail
-fi
+# force linkage of /etc/mtab to the kernel
+[[ -L /etc/mtab ]] || ln -sf /proc/self/mounts /etc/mtab
 
 # now mount all the local filesystems
 run_hook sysinit_premount

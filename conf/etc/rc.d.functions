@@ -149,7 +149,7 @@ printsep() {
 stat_bkgd() {
 	printf "${C_OTHER}${PREFIX_REG} ${C_MAIN}${1}${C_CLEAR} "
 	deltext
-	printf "   ${C_OTHER}[${C_BKGD}BKGD${C_OTHER}]${C_CLEAR} "
+	printf "   ${C_OTHER}[${C_BKGD}BKGD${C_OTHER}]${C_CLEAR} \n"
 }
 
 stat_busy() {
@@ -438,7 +438,11 @@ NETFS="nfs,nfs4,smbfs,cifs,codafs,ncpfs,shfs,fuse,fuseblk,glusterfs,davfs,fuse.g
 
 # Check local filesystems
 fsck_all() {
-	fsck -A -T -C"$FSCK_FD" -a -t "no${NETFS//,/,no},noopts=_netdev" $FORCEFSCK
+	if [[ -e /run/initramfs/root-fsck ]]; then
+		IGNORE_MOUNTED="-M"
+	fi
+
+	fsck -A -T -C${FSCK_FD} -a -t no${NETFS//,/,no},noopts=_netdev ${FORCEFSCK} ${IGNORE_MOUNTED}
 }
 
 # Single-user login and/or automatic reboot after fsck (if needed)
@@ -504,7 +508,7 @@ umount_all() {
 		fi
 
 		mounts+=("$target")
-	done < <(findmnt -runRo TARGET,FSTYPE,OPTIONS / | tac)
+	done < <(findmnt -mrunRo TARGET,FSTYPE,OPTIONS / | tac)
 
 	umount -r "${mounts[@]}"
 
@@ -512,13 +516,16 @@ umount_all() {
 
 remove_leftover() {
 	stat_busy "Removing Leftover Files"
-		# handle this separately until we declare the non-symlinks obsoleted
-		[[ ! -L /var/lock ]] && rm -rf /var/lock/*
-		if [[ ! -L /var/run && -d /var/run ]]; then
-			find /var/run/ \! -type d -delete
-			ln -s /run/daemons /var/run/daemons
-		fi
 		/usr/lib/initscripts/arch-tmpfiles --create --remove && stat_done || stat_fail
+		# move from static /var/{run,lock} to /run
+		if [[ ! -L /var/lock ]]; then
+			rm -rf /var/lock
+			ln -s /run/lock /var/lock
+		fi
+		if [[ ! -L /var/run ]]; then
+			rm -rf /var/run
+			ln -s /run /var/run
+		fi
 }
 
 bootlogd_stop() {
@@ -561,6 +568,7 @@ bootlogd_stop() {
 # single_prekillall: before all processes are being killed in rc.single
 # shutdown_postkillall: after all processes have been killed in rc.shutdown
 # single_postkillall: after all processes have been killed in rc.single
+# shutdown_preumount: after last filesystem write, but before filesystems are unmounted
 # shutdown_postumount: after filesystems are unmounted
 # shutdown_poweroff: directly before powering off in rc.shutdown
 #
@@ -606,7 +614,7 @@ set_consolefont() {
 }
 
 if [[ $DAEMON_LOCALE = [yY][eE][sS] ]]; then
-	LANG=${LOCALE:-C}
+	export LANG=${LOCALE:-C}
 	if [[ -r /etc/locale.conf ]]; then
 		parse_envfile /etc/locale.conf "${localevars[@]}"
 	fi
@@ -621,23 +629,23 @@ if [[ $USECOLOR = [yY][eE][sS] ]]; then
 		C_MAIN=${C_CLEAR}$(tput bold)        # main text
 		C_OTHER=${C_MAIN}$(tput setaf 2)     # prefix & brackets
 		C_SEPARATOR=${C_MAIN}$(tput setaf 0) # separator
-		C_BUSY=${C_CLEAR}$(tput setaf 3)     # busy
+		C_BUSY=${C_CLEAR}$(tput bold; tput setaf 3)     # busy
 		C_FAIL=${C_MAIN}$(tput setaf 1)      # failed
 		C_DONE=${C_MAIN}                          # completed
-		C_BKGD=${C_MAIN}$(tput setaf 2)      # backgrounded
+		C_BKGD=${C_MAIN}$(tput setaf 3)      # backgrounded
 		C_H1=${C_MAIN}                            # highlight text 1
-		C_H2=${C_MAIN}$(tput setaf 3)        # highlight text 2
+		C_H2=${C_MAIN}$(tput bold; tput setaf 3)        # highlight text 2
 	else
 		C_CLEAR="\e[m"          # clear text
 		C_MAIN="\e[;1m"         # main text
 		C_OTHER="\e[1;32m"      # prefix & brackets
 		C_SEPARATOR="\e[1;30m"  # separator
-		C_BUSY="\e[;33m"        # busy
+		C_BUSY="\e[;33;1m"        # busy
 		C_FAIL="\e[1;31m"       # failed
 		C_DONE=${C_MAIN}        # completed
-		C_BKGD="\e[1;32m"       # backgrounded
+		C_BKGD="\e[1;33m"       # backgrounded
 		C_H1=${C_MAIN}          # highlight text 1
-		C_H2="\e[1;33m"         # highlight text 2
+		C_H2="\e[1;33;1m"         # highlight text 2
 	fi
 fi
 

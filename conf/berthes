@@ -60,7 +60,7 @@ nanorc
 fancontrol
 httpd/conf/httpd.conf
 php/php.ini
-laptop-mode/laptop-mode.conf
+laptop-mode
 modprobe.d/modprobe.conf
 mkinitcpio.conf
 pacman.d/mirrorlist
@@ -68,6 +68,7 @@ X11/xorg.conf.d
 xorg.conf
 fonts/local.conf:fonts.local.conf
 asound.conf
+fstab
 
 [/usr/share:conf/share]
 eclipse/eclipse.ini
